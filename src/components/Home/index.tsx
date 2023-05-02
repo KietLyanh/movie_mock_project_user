@@ -18,7 +18,7 @@ import {
 } from 'src/models/api'
 import { Genres, IMAGE_URL, IMAGE_WIDTH } from 'src/models/common'
 import { QUERY_KEYS } from 'src/utils/keys'
-import { getNowPlayingList, getTVShowPopularList, getTrendingList } from 'src/utils/api'
+import { getMovieList } from 'src/utils/api/movie'
 import { PlayIcon } from 'src/common/CustomIcons'
 import { settingSlideList, settings } from 'src/utils/slider'
 
