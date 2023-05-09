@@ -42,17 +42,17 @@ export const SELECT_SEARCH: SelectSearch[] = [
 export const MENU_HEADER: MenuHeader[] = [
   {
     id: 1,
-    name: 'Now Playing',
+    name: 'Phim mới',
     path: '/now_playing',
   },
   {
     id: 2,
-    name: 'Top Rated',
-    path: '/top_rated',
+    name: 'Đăng Nhập',
+    path: '/',
   },
   {
     id: 3,
-    name: 'TV Show',
+    name: '',
     path: '/tv_show',
   },
 ]
