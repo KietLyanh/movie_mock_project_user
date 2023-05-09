@@ -33,22 +33,9 @@ export const settings = {
 }
 
 export const settingSlideList = {
-  dots: true,
   infinite: true,
   speed: 500,
   swipeToSlide: true,
   slidesToShow: 3,
   slidesToScroll: 3,
-  appendDots: (dots: any) => (
-    <div
-      style={{
-        position: 'absolute',
-        left: '50%',
-        translate: '-50%',
-        bottom: '10px',
-      }}
-    >
-      <ul style={{ margin: '0px' }}> {dots} </ul>
-    </div>
-  ),
 }

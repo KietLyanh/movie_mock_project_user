@@ -1,6 +1,4 @@
-import {
-    IMovieListData
-} from 'src/models/api/movie.interface';
+import { fetchDataAuth } from './index';
 
 export const API_BASE_URL = 'http://127.0.0.1:8090';
 
@@ -20,7 +18,7 @@ export const getMovieList = async (input: {
             }
         );
 
-        const rawResponse = await response.json() as IMovieListData;
+        const rawResponse = await response.json();
 
         return rawResponse;
     } catch (error: any) {
@@ -212,34 +210,20 @@ export const updateMovie = async (input: {
     }
 };
 
-export const getMovieData = async (input: {
-    id: string;
-    accessToken: string;
-}) => {
+export const getMovieData = async (input: { id: string }) => {
     try {
-        const { id, accessToken } = input;
+        const { id } = input;
 
         if (!id || id === '') {
             return { success: false, data: null, message: 'Invalid Id' };
         }
 
-        if (!accessToken || accessToken === '') {
-            return { success: false, data: null, message: 'Invalid Access Token' };
-        }
-
-        const response = await fetch(
+        const response = await fetchDataAuth(
             `${API_BASE_URL}/api/collections/movies/records/${id}`,
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            }
+            'GET'
         );
 
-        const rawResponse = await response.json();
-
-        return rawResponse;
+        return response;
     } catch (error: any) {
         return { success: false, data: null, message: error.message };
     }
