@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 import debounce from 'lodash.debounce'
-import { MenuIcon, PlayIcon, SearchIcon } from '../CustomIcons'
-import { IMAGE_URL, MenuHeader } from 'src/models/common'
-import { MENU_HEADER, SELECT_SEARCH, SelectSearch } from 'src/utils/common'
+import { SearchIcon } from '../CustomIcons'
+import { MenuHeader } from 'src/models/common'
+import { MENU_HEADER } from 'src/utils/common'
 import { useClickOutside } from 'src/hooks/useClickOutSide'
 import { IUserInfo } from 'src/models/api/auth.interface'
 import { USER_INFO } from 'src/utils/api/auth'
@@ -22,8 +22,6 @@ export const Header = () => {
 
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
   const [keyword, setKeyword] = useState<string>(searchParams.get('q') ?? '')
-  const [page, setPage] = useState<number>(1)
-  const [limit, setLimit] = useState<number>(5)
 
   const debounceKeyword = (keyword: string) => {
     setKeyword(keyword)
@@ -88,18 +86,6 @@ export const Header = () => {
         <div className="absolute z-100 w-full top-[50px] bg-[#000] shadow-lg pb-[10px]" ref={childRef}>
           <ul className="w-[calc(100%-20px)] sm:container mx-auto mt-[10px]">
             <li className="rounded-md overflow-hidden bg-[#FFFFFF] flex gap-[10px] w-full">
-              <select
-                defaultChecked={true}
-                defaultValue={searchParams.get('type') ?? SELECT_SEARCH[0].value}
-                className="text-[#000] w-[90px] cursor-pointer font-semibold px-[10px] outline-none"
-                onChange={onChangeSelectType}
-              >
-                {SELECT_SEARCH.map((item: SelectSearch) => (
-                  <option key={item.id} value={item.value}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
               <div className="flex flex-1 items-center px-[10px] border-l-[1px] border-[#808080]">
                 <input
                   placeholder="Search keyword"
