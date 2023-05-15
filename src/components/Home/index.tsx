@@ -101,7 +101,7 @@ export const HomeScreen = () => {
                 <div className="absolute w-full h-full bg-[#00000074] z-10" />
 
                 <LazyLoadImage
-                  src={`${IMAGE_URL}/${item.collectionId}/${item.id}/${item.poster}`}
+                  src={`${item.poster}`}
                   height={400}
                   width={1100}
                   effect="blur"
@@ -141,7 +141,7 @@ export const HomeScreen = () => {
                     <PlayIcon width={48} height={48} color="#FFFFFF" />
                   </div>
                   <LazyLoadImage
-                      src={`${IMAGE_URL}/${item.collectionId}/${item.id}/${item.poster}`}
+                      src={`${item.poster}`}
                     className="relative z-1 h-full w-[95%] object-cover"
                     alt={ item.name ?? 'Image'}
                   />

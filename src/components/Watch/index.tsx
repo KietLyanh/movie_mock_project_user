@@ -110,7 +110,7 @@ export const WatchMovie = () => {
                     <div className="w-full h-screen">
                         <img
                             className="absolute w-full object-cover h-full bg-repeat"
-                            src={`${IMAGE_URL}/${movie.collectionId}/${movie.id}/${movie.poster}`}
+                            src={`${movie.poster}`}
                             alt={movie.name ?? 'Image'}
                         />
                         <div className="absolute w-full h-full bg-[#000000a9] z-10" />
@@ -158,7 +158,7 @@ export const WatchMovie = () => {
                                 {/*</div>*/}
                                 <div className="mt-[10px] flex gap-[20px]">
                                     <div className="w-full md:w-[calc(100%-350px)] max-sm:block max-md:flex">
-                                        <p className="text-[#FFFFFF] max-md:block max-sm:text-[12px]">{movie.description}</p>
+                                        {/*<p className="text-[#FFFFFF] max-md:block max-sm:text-[12px]">{movie.description}</p>*/}
                                         {/*<div className="mt-[5px]">*/}
                                         {/*    <div className="flex items-center gap-[20px] text-[#FFFFFF] border-[#FFFFFF] border-b-[1px] pb-[5px]">*/}
                                         {/*        <p className="text-[15px] md:text-[22px] font-semibold">Director: </p>*/}
@@ -222,9 +222,6 @@ export const WatchMovie = () => {
                                     {/*</div>*/}
                                 </div>
                             </div>
-                            <Link to={'/Watch'} className="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-24 rounded">
-                                Xem Phim
-                            </Link>
                         </div>
                     </div>
                 </div>

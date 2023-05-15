@@ -9,10 +9,10 @@ export interface IMovieListData {
     updated: string;
     name: string;
     description: string;
-    actor: IActorListData[];
+    actor: string;
     poster: string;
-    category: ICategoryListData[];
-    video: string;
+    category: string;
+    video: string
 }
 export interface IMovieListDataResponse {
     page: number;
@@ -20,6 +20,30 @@ export interface IMovieListDataResponse {
     totalPages: number;
     totalItems: number;
     items: IMovieListData[];
+}
+
+export interface ICreateMovieDataResponse {
+    id: string;
+    collectionId: string;
+    collectionName: string;
+    created: string;
+    name: string;
+    description: string;
+    actor: string;
+    poster: string;
+    category: string;
+}
+
+export interface IEditMovieDataResponse {
+    id: string;
+    collectionId: string;
+    collectionName: string;
+    created: string;
+    name: string;
+    description: string;
+    actor: string;
+    poster: string;
+    category: string;
 }
 
 export interface IMovieListDataResponseError {

@@ -110,7 +110,7 @@ export const MovieScreen = () => {
               <div className="w-full h-screen">
                   <img
                       className="absolute w-full object-cover h-full"
-                      src={`${IMAGE_URL}/${movie.collectionId}/${movie.id}/${movie.poster}`}
+                      src={`${movie.poster}`}
                       alt={movie.name ?? 'Image'}
                   />
                   <div className="absolute w-full h-full bg-[#000000a9] z-10" />
@@ -141,7 +141,7 @@ export const MovieScreen = () => {
                           <div className="mt-[30px] flex flex-wrap h-fit sm:h-[450px] gap-[10px]">
                               <img
                                   className="object-cover h-full max-md:hidden"
-                                  src={`${IMAGE_URL}/${movie.collectionId}/${movie.id}/${movie.poster}`}
+                                  src={`${movie.poster}`}
                                   alt={movie.name ?? 'Image'}
                               />
                               <iframe
@@ -151,33 +151,26 @@ export const MovieScreen = () => {
                               />
                           </div>
                       <div className="mt-[15px] max-sm:px-[10px] pb-9">
-                          {/*<div className="flex gap-[15px] flex-wrap">*/}
-                          {/*    {movie.genres.map((genre: { id: number; name: string }) => (*/}
-                          {/*        <div*/}
-                          {/*            key={genre.id}*/}
-                          {/*            className="px-[20px] text-center py-[5px] border-[#808080] text-[#FFFFFF] border-[1px] rounded-full"*/}
-                          {/*        >*/}
-                          {/*            {genre.name}*/}
-                          {/*        </div>*/}
-                          {/*    ))}*/}
-                          {/*</div>*/}
+                          <div className="flex gap-[15px] flex-wrap">
+                                  <p className="px-[20px] text-center py-[5px] border-[#808080] text-[#FFFFFF] border-[1px] rounded-full">
+                                      {movie.category}
+                                  </p>
+                          </div>
                           <div className="mt-[10px] flex gap-[20px]">
                               <div className="w-full md:w-[calc(100%-350px)] max-sm:block max-md:flex">
                                   <p className="text-[#FFFFFF] max-md:block max-sm:text-[12px]">{movie.description}</p>
-                                  {/*<div className="mt-[5px]">*/}
-                                  {/*    <div className="flex items-center gap-[20px] text-[#FFFFFF] border-[#FFFFFF] border-b-[1px] pb-[5px]">*/}
-                                  {/*        <p className="text-[15px] md:text-[22px] font-semibold">Director: </p>*/}
-                                  {/*        <div className="flex items-center gap-[10px]">*/}
-                                  {/*            {departments.director.map((director: string, index: number) => (*/}
-                                  {/*                <div className="flex items-center gap-[10px]">*/}
-                                  {/*                    <p className="max-md:text-[10px]" key={index}>*/}
-                                  {/*                        {director}*/}
-                                  {/*                    </p>*/}
-                                  {/*                    <div className="w-[2px] h-[2px] bg-[#FFFFFF]" />*/}
-                                  {/*                </div>*/}
-                                  {/*            ))}*/}
-                                  {/*        </div>*/}
-                                  {/*    </div>*/}
+                                  <div className="mt-[5px]">
+                                      <div className="flex items-center gap-[20px] text-[#FFFFFF] border-[#FFFFFF] border-b-[1px] pb-[5px]">
+                                          <p className="text-[15px] md:text-[22px] font-semibold">Actors: </p>
+                                          <div className="flex items-center gap-[10px]">
+                                                  <div className="flex items-center gap-[10px]">
+                                                      <p className="max-md:text-[10px]">
+                                                          {movie.actor}
+                                                      </p>
+                                                      <div className="w-[2px] h-[2px] bg-[#FFFFFF]" />
+                                                  </div>
+                                          </div>
+                                      </div>
                                   {/*    <div className="flex mt-[10px] items-center gap-[20px] text-[#FFFFFF] border-[#FFFFFF] border-b-[1px] pb-[5px]">*/}
                                   {/*        <p className="text-[15px] md:text-[22px] font-semibold">Writers: </p>*/}
                                   {/*        <div className="flex items-center gap-[10px]">*/}
@@ -204,7 +197,7 @@ export const MovieScreen = () => {
                                   {/*            ))}*/}
                                   {/*        </div>*/}
                                   {/*    </div>*/}
-                                  {/*</div>*/}
+                                  </div>
                               </div>
                               {/*<div className="w-[350px] bg-[#FFFFFF] p-[10px] max-md:hidden">*/}
                               {/*    <div className="text-[#000] text-[22px] text-center font-semibold ">Co-operation Companies</div>*/}
