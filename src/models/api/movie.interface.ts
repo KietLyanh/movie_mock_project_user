@@ -12,6 +12,7 @@ export interface IMovieListData {
     actor: IActorListData[];
     poster: string;
     category: ICategoryListData[];
+    video: string;
 }
 export interface IMovieListDataResponse {
     page: number;

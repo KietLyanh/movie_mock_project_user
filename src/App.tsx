@@ -6,6 +6,7 @@ import { SearchMultiScreen } from './components/Search'
 import { MovieScreen } from './components/Movie'
 import { TVScreen } from './components/TV'
 import { TVShowScreen } from './components/TVShow'
+import {WatchMovie} from "./components/Watch";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/movie/:id" element={<MovieScreen />} />
       <Route path="/tv/:id" element={<TVScreen />} />
       <Route path="/tv_show" element={<TVShowScreen />} />
+        <Route path="/watch/:id" element={<WatchMovie />} />
     </Routes>
   )
 }

@@ -20,24 +20,28 @@ export const SearchMultiScreen = () => {
   const navigate = useNavigate()
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(5);
-  const [keyword, setKeyword] = useState<string>('');
 
   const { data: searchData, isLoading: isSearchLoading } = useQuery(
-      [QUERY_KEYS.MOVIE_LIST, page, limit, keyword],
+      [QUERY_KEYS.MOVIE_LIST, page, limit],
       async () => {
+          try {
         const response = (await getMovieList({
           page,
           limit,
-          name: keyword
+          name: searchParams.get('q') ?? '',
         })) as IMovieListDataResponse;
 
         if (response) {
           return response
         }
+          } catch (error) {
+              console.log(error)
+          }
       },
     {
       refetchInterval: false,
       refetchOnWindowFocus: false,
+        enabled: searchParams.get('q') !== '',
     },
   )
 
@@ -45,11 +49,11 @@ export const SearchMultiScreen = () => {
     setPage(page)
     navigate({
       pathname: '/search',
-      search: `?page=${page}&limit=${limit}&keyword=${keyword}`,
+      search: `?&keyword=${searchParams.get('q') ?? ''}`,
     })
   }
 
-  if (searchData && isSearchLoading) {
+  if (isSearchLoading && isSearchLoading) {
     return (
       <Layout>
         <CardSkeletonLoading card={20} />
@@ -60,12 +64,12 @@ export const SearchMultiScreen = () => {
   return (
     <Layout>
       <div className="w-[calc(100%-30px)] md:container lg:w-[1100px] mx-auto mt-[80px]">
-        {searchData && !isSearchLoading && searchParams.get('q') !== '' ? (
+        {searchData && !isSearchLoading && searchParams.get('q')  ? (
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[20px] mt-[20px]">
             {searchData.items?.map((item: any, index: number) => (
               <Link
                 key={index}
-                to={`/${searchParams.get('type') !== 'multi' ? searchParams.get('type') : item.media_type}/${item.id}`}
+                to={`/movie/${item.id}`}
                 className="relative group max-sm:mx-auto overflow-hidden"
               >
                 <div className="absolute text-[#FFFFFF] group-hover:flex flex-col justify-center items-center hidden w-full h-full bg-[#00000088] z-10">
