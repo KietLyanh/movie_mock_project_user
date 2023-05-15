@@ -47,11 +47,6 @@ export const MENU_HEADER: MenuHeader[] = [
   },
   {
     id: 2,
-    name: 'Đăng Nhập',
-    path: '/',
-  },
-  {
-    id: 3,
     name: '',
     path: '/tv_show',
   },

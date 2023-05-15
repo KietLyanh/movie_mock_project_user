@@ -8,37 +8,31 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { useQuery } from '@tanstack/react-query'
 import { Layout } from '..'
 import { LoadingScreen } from 'src/common/LoadingScreen'
-import {
-    IMovieListData,
-    IMovieListDataResponse,
-} from 'src/models/api/movie.interface'
-import { Genres, IMAGE_URL, IMAGE_WIDTH } from 'src/models/common'
+import { IMovieListData, IMovieListDataResponse } from 'src/models/api/movie.interface'
 import { QUERY_KEYS } from 'src/utils/keys'
 import { getMovieList } from 'src/utils/api/movie'
 import { PlayIcon } from 'src/common/CustomIcons'
 import { settingSlideList, settings } from 'src/utils/slider'
-import {isWidth} from "postcss-merge-longhand/types/lib/validateWsc";
 
 dayjs.extend(utc)
 
 export const HomeScreen = () => {
-    const [page, setPage] = useState<number>(0);
-    const [limit, setLimit] = useState<number>(5);
-    const [keyword, setKeyword] = useState<string>('');
-
+  const [page, setPage] = useState<number>(0)
+  const [limit, setLimit] = useState<number>(5)
+  const [keyword, setKeyword] = useState<string>('')
 
   const { data: trend_list, isLoading: isTrendListLoading } = useQuery(
     [QUERY_KEYS.MOVIE_LIST, page, limit, keyword],
     async () => {
-        const response = (await getMovieList({
-            page,
-            limit,
-            name: keyword
-        })) as IMovieListDataResponse;
+      const response = (await getMovieList({
+        page,
+        limit,
+        name: keyword,
+      })) as IMovieListDataResponse
 
-        if (response) {
-        return response.items;
-        }
+      if (response) {
+        return response.items
+      }
     },
     {
       refetchInterval: false,
@@ -48,18 +42,18 @@ export const HomeScreen = () => {
   )
 
   const { data: nowPlayingList, isLoading: isNowPlayingLoading } = useQuery(
-      [QUERY_KEYS.MOVIE_LIST, page, limit, keyword],
-      async () => {
-          const response = (await getMovieList({
-              page,
-              limit,
-              name: keyword
-          })) as IMovieListDataResponse;
+    [QUERY_KEYS.MOVIE_LIST, page, limit, keyword],
+    async () => {
+      const response = (await getMovieList({
+        page,
+        limit,
+        name: keyword,
+      })) as IMovieListDataResponse
 
-          if (response) {
-              return response.items;
-          }
-      },
+      if (response) {
+        return response.items
+      }
+    },
     {
       refetchInterval: false,
       refetchOnWindowFocus: false,
@@ -101,12 +95,12 @@ export const HomeScreen = () => {
                 <div className="absolute w-full h-full bg-[#00000074] z-10" />
 
                 <LazyLoadImage
-                  src={`${item.poster}`}
+                  src={item.poster}
                   height={400}
                   width={1100}
                   effect="blur"
                   wrapperClassName="object-cover w-full absolute top-0 left-0 z-1"
-                  alt={ item.name ?? 'Image'}
+                  alt={item.name ?? 'Image'}
                 />
 
                 <div className="text-[#FFFFFF] absolute bottom-[40px] left-[20px] z-100">
@@ -117,9 +111,8 @@ export const HomeScreen = () => {
                     <PlayIcon width={24} height={24} color="#FFFFFF" />
                     <p>Watch</p>
                   </Link>
-                  <p className="text-[42px] font-semibold">{ item.name}</p>
-                  <div className="flex gap-[10px] items-center">
-                  </div>
+                  <p className="text-[42px] font-semibold">{item.name}</p>
+                  <div className="flex gap-[10px] items-center"></div>
                 </div>
               </div>
             ))}
@@ -141,9 +134,9 @@ export const HomeScreen = () => {
                     <PlayIcon width={48} height={48} color="#FFFFFF" />
                   </div>
                   <LazyLoadImage
-                      src={`${item.poster}`}
+                    src={item.poster}
                     className="relative z-1 h-full w-[95%] object-cover"
-                    alt={ item.name ?? 'Image'}
+                    alt={item.name ?? 'Image'}
                   />
                 </Link>
               ))}
