@@ -93,9 +93,9 @@ export const MovieScreen = () => {
   //     enabled: !!id,
   //   },
   // )
+    const splitactor = movie?.actor.split(",");
 
-
-  if (isMovieLoading) {
+    if (isMovieLoading) {
     return (
       <div className="w-screen h-screen">
         <LoadingScreen />
@@ -165,7 +165,7 @@ export const MovieScreen = () => {
                                           <div className="flex items-center gap-[10px]">
                                                   <div className="flex items-center gap-[10px]">
                                                       <p className="max-md:text-[10px]">
-                                                          {movie.actor}
+                                                          {splitactor}
                                                       </p>
                                                       <div className="w-[2px] h-[2px] bg-[#FFFFFF]" />
                                                   </div>
