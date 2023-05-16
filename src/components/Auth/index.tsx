@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import InputPassword from 'src/common/InputPassword'
 import { ILoginAuth } from 'src/models/api/auth.interface'
@@ -38,7 +38,7 @@ export const LoginPage = () => {
         <form className="p-[20px]" onSubmit={onLogin}>
           <div>
             <label htmlFor="email" className="block text-[18px] text-white">
-              Email:
+              Username:
             </label>
             <input
               id="email"
@@ -52,11 +52,6 @@ export const LoginPage = () => {
               Password:
             </label>
             <InputPassword classNameCustom="text-[#ffffffb6] mt-[5px] rounded-sm" ref={passwordValue} />
-          </div>
-          <div className="flex justify-end mt-[10px]">
-            <Link to="/register" className="text-white underline">
-              Don't have an account ?
-            </Link>
           </div>
           <button className="w-full py-[8px] bg-[#FFFFFF] mt-[20px] rounded-sm" type="submit">
             Login

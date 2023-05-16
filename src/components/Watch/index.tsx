@@ -1,30 +1,20 @@
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-
-import {Link, useParams} from 'react-router-dom'
-import { Layout } from '..'
-import { getCredits, getMovieDetail, getVideoMovieDetail } from 'src/utils/api'
-import { CreditsData, CreditsDataResponse, MovieDetailData, VideoMovieDataResponse } from 'src/models/api'
-import { QUERY_KEYS } from 'src/utils/keys'
+import {useParams} from 'react-router-dom'
+import {Layout} from '..'
+import {QUERY_KEYS} from 'src/utils/keys'
 import {useQuery, useQueryClient} from '@tanstack/react-query'
-import { LoadingScreen } from 'src/common/LoadingScreen'
-import { IMAGE_URL, IMAGE_WIDTH } from 'src/models/common'
-import { convertTime, filterCast } from 'src/utils/common'
-import { StarIcon } from 'src/common/CustomIcons'
-import {ChangeEvent, useEffect, useMemo, useRef, useState} from 'react'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import {LoadingScreen} from 'src/common/LoadingScreen'
+import React, {ChangeEvent, useMemo, useRef, useState} from 'react'
 import {createCommentMovieData, getCommentData, getMovieData, getVoteMovieData, voteMovie} from "../../utils/api/movie";
 import {
     ICommentData,
     ICommentDataResponse,
     IMovieListData,
-    IMovieListDataResponse, IVoteData,
+    IVoteData,
     IVoteDataResponse
 } from "../../models/api/movie.interface";
 import {USER_INFO} from "../../utils/api/auth";
 import {IUserInfo} from "../../models/api/auth.interface";
 
-dayjs.extend(utc)
 
 type ParamProps = {
     id: string
@@ -32,16 +22,15 @@ type ParamProps = {
 
 
 export const WatchMovie = () => {
-    const { id } = useParams<ParamProps>()
+    const {id} = useParams<ParamProps>()
     const queryClient = useQueryClient()
-
     const commentValue = useRef() as React.MutableRefObject<HTMLInputElement>
     const [voteNumber, setVoteNumber] = useState<number>(1)
     const userInfo = useMemo(() => {
         return localStorage.getItem(USER_INFO) ? JSON.parse(localStorage.getItem(USER_INFO) ?? '{}') : undefined
     }, []) as IUserInfo
 
-    const { data: movie, isLoading: isMovieLoading } = useQuery(
+    const {data: movie, isLoading: isMovieLoading} = useQuery(
         [QUERY_KEYS.MOVIE_LIST, id],
         async () => {
             try {
@@ -49,7 +38,6 @@ export const WatchMovie = () => {
                     const response = (await getMovieData({
                         id
                     })) as IMovieListData;
-
                     if (response) {
                         return response
                     }
@@ -66,7 +54,7 @@ export const WatchMovie = () => {
         },
     )
 
-    const { data: comments, isLoading: isCommentLoading } = useQuery(
+    const {data: comments, isLoading: isCommentLoading} = useQuery(
         [QUERY_KEYS.COMMENT_MOVIE, id],
         async () => {
             try {
@@ -74,7 +62,6 @@ export const WatchMovie = () => {
                     const response = (await getCommentData({
                         name: id,
                     })) as ICommentDataResponse
-
                     if (response) {
                         return response
                     }
@@ -91,7 +78,7 @@ export const WatchMovie = () => {
         },
     )
 
-    const { data: votes, isLoading: isVoteLoading } = useQuery(
+    const {data: votes, isLoading: isVoteLoading} = useQuery(
         [QUERY_KEYS.VOTE_MOVIE, id],
         async () => {
             try {
@@ -99,16 +86,12 @@ export const WatchMovie = () => {
                     const response = (await getVoteMovieData({
                         name: id,
                     })) as IVoteDataResponse
-
                     if (response.items.length === 0) return 0
-
                     const initialValue = 0
-
                     const sum = response.items.reduce(
                         (accumulator: number, currentValue: IVoteData) => accumulator + currentValue.votes,
                         initialValue,
                     )
-
                     return sum / response.items.length
                 }
             } catch (error) {
@@ -132,29 +115,29 @@ export const WatchMovie = () => {
     const handleComment = async (e: { keyCode: number }) => {
         try {
             if (e.keyCode === 13 && userInfo && id && commentValue.current.value !== '') {
-                await createCommentMovieData({ field: userInfo.id, comments: commentValue.current.value, movies: id })
-
+                await createCommentMovieData({field: userInfo.id, comments: commentValue.current.value, movies: id})
                 commentValue.current.value = ''
-                queryClient.invalidateQueries([QUERY_KEYS.COMMENT_MOVIE])
+                await queryClient.invalidateQueries([QUERY_KEYS.COMMENT_MOVIE])
             }
-        } catch (error) {}
+        } catch (error) {
+        }
     }
 
     const handleVote = async () => {
         try {
             if (userInfo && id && voteNumber !== 0) {
-                await voteMovie({ field: userInfo.id, votes: voteNumber, movies: id })
-
+                await voteMovie({field: userInfo.id, votes: voteNumber, movies: id})
                 setVoteNumber(0)
-                queryClient.invalidateQueries([QUERY_KEYS.VOTE_MOVIE])
+                await queryClient.invalidateQueries([QUERY_KEYS.VOTE_MOVIE])
             }
-        } catch (error) {}
+        } catch (error) {
+        }
     }
 
     if (isMovieLoading || isCommentLoading || isVoteLoading) {
         return (
             <div className="w-screen h-screen">
-                <LoadingScreen />
+                <LoadingScreen/>
             </div>
         )
     }
@@ -163,7 +146,7 @@ export const WatchMovie = () => {
     if (isMovieLoading) {
         return (
             <div className="w-screen h-screen">
-                <LoadingScreen />
+                <LoadingScreen/>
             </div>
         )
     }
@@ -178,7 +161,7 @@ export const WatchMovie = () => {
                             src={`${movie.poster}`}
                             alt={movie.name ?? 'Image'}
                         />
-                        <div className="absolute w-full h-full z-10" />
+                        <div className="absolute w-full h-full z-10"/>
                         <div className="relative container lg:w-[1500px] mx-auto z-10 pt-[60px] max-sm:px-[10px]">
                             <div className="flex justify-between items-center flex-wrap">
                                 <div className="text-[#FFFFFF]">
@@ -264,73 +247,6 @@ export const WatchMovie = () => {
                                                 )
                                             }
                                         })}
-                                </div>
-                            </div>
-                            <div className="mt-[15px] max-sm:px-[10px] pb-9">
-                                <div className="mt-[10px] flex gap-[20px]">
-                                    <div className="w-full md:w-[calc(100%-350px)] max-sm:block max-md:flex">
-                                        {/*<p className="text-[#FFFFFF] max-md:block max-sm:text-[12px]">{movie.description}</p>*/}
-                                        {/*<div className="mt-[5px]">*/}
-                                        {/*    <div className="flex items-center gap-[20px] text-[#FFFFFF] border-[#FFFFFF] border-b-[1px] pb-[5px]">*/}
-                                        {/*        <p className="text-[15px] md:text-[22px] font-semibold">Director: </p>*/}
-                                        {/*        <div className="flex items-center gap-[10px]">*/}
-                                        {/*            {departments.director.map((director: string, index: number) => (*/}
-                                        {/*                <div className="flex items-center gap-[10px]">*/}
-                                        {/*                    <p className="max-md:text-[10px]" key={index}>*/}
-                                        {/*                        {director}*/}
-                                        {/*                    </p>*/}
-                                        {/*                    <div className="w-[2px] h-[2px] bg-[#FFFFFF]" />*/}
-                                        {/*                </div>*/}
-                                        {/*            ))}*/}
-                                        {/*        </div>*/}
-                                        {/*    </div>*/}
-                                        {/*    <div className="flex mt-[10px] items-center gap-[20px] text-[#FFFFFF] border-[#FFFFFF] border-b-[1px] pb-[5px]">*/}
-                                        {/*        <p className="text-[15px] md:text-[22px] font-semibold">Writers: </p>*/}
-                                        {/*        <div className="flex items-center gap-[10px]">*/}
-                                        {/*            {departments.writer.map((writer: string, index: number) => (*/}
-                                        {/*                <div className="flex items-center gap-[10px]">*/}
-                                        {/*                    <p className="max-md:text-[10px]" key={index}>*/}
-                                        {/*                        {writer}*/}
-                                        {/*                    </p>*/}
-                                        {/*                    <div className="w-[2px] h-[2px] bg-[#FFFFFF]" />*/}
-                                        {/*                </div>*/}
-                                        {/*            ))}*/}
-                                        {/*        </div>*/}
-                                        {/*    </div>*/}
-                                        {/*    <div className="flex mt-[10px] items-center gap-[20px] text-[#FFFFFF] border-[#FFFFFF] border-b-[1px] pb-[5px]">*/}
-                                        {/*        <p className="text-[15px] md:text-[22px] font-semibold">Stars: </p>*/}
-                                        {/*        <div>*/}
-                                        {/*            {departments.actors.map((actor: string, index: number) => (*/}
-                                        {/*                <div className="flex items-center gap-[10px]">*/}
-                                        {/*                    <p className="max-md:text-[10px]" key={index}>*/}
-                                        {/*                        {actor}*/}
-                                        {/*                    </p>*/}
-                                        {/*                    <div className="w-[2px] h-[2px] bg-[#FFFFFF]" />*/}
-                                        {/*                </div>*/}
-                                        {/*            ))}*/}
-                                        {/*        </div>*/}
-                                        {/*    </div>*/}
-                                        {/*</div>*/}
-                                    </div>
-                                    {/*<div className="w-[350px] bg-[#FFFFFF] p-[10px] max-md:hidden">*/}
-                                    {/*    <div className="text-[#000] text-[22px] text-center font-semibold ">Co-operation Companies</div>*/}
-                                    {/*    <div className="flex gap-[30px] flex-wrap mt-[10px] items-center">*/}
-                                    {/*        {movie.production_companies.map(*/}
-                                    {/*            (company: { id: number; logo_path: string; name: string; origin_country: string }) => (*/}
-                                    {/*                <div className="relative group w-fit h-fit cursor-pointer" key={company.id}>*/}
-                                    {/*                    <LazyLoadImage*/}
-                                    {/*                        src={`${IMAGE_URL}/${IMAGE_WIDTH.W92}/${company.logo_path}`}*/}
-                                    {/*                        alt={movie.title ?? 'Image'}*/}
-                                    {/*                        className=""*/}
-                                    {/*                    />*/}
-                                    {/*                    <div className="group-hover:block py-[2px] px-[5px] text-[12px] w-fit absolute z-20 hidden top-[-20px] left-[50%] bg-[#FFFFFF]">*/}
-                                    {/*                        {company.name}*/}
-                                    {/*                    </div>*/}
-                                    {/*                </div>*/}
-                                    {/*            ),*/}
-                                    {/*        )}*/}
-                                    {/*    </div>*/}
-                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,3 @@
-import { IActorListData } from './actor.interface'
-import { ICategoryListData } from './category.interface'
 
 export interface IMovieListData {
   id: string
@@ -9,9 +7,9 @@ export interface IMovieListData {
   updated: string
   name: string
   description: string
-  actor: IActorListData[]
+  actor: string;
   poster: string
-  category: ICategoryListData[]
+  category: string;
   video: string
 }
 export interface IMovieListDataResponse {
@@ -20,36 +18,6 @@ export interface IMovieListDataResponse {
   totalPages: number
   totalItems: number
   items: IMovieListData[]
-}
-
-export interface ICreateMovieDataResponse {
-  id: string
-  collectionId: string
-  collectionName: string
-  created: string
-  name: string
-  description: string
-  actor: string
-  poster: string
-  category: string
-}
-
-export interface IEditMovieDataResponse {
-  id: string
-  collectionId: string
-  collectionName: string
-  created: string
-  name: string
-  description: string
-  actor: string
-  poster: string
-  category: string
-}
-
-export interface IMovieListDataResponseError {
-  success: boolean
-  data: null
-  message: string
 }
 
 export interface ICommentData {

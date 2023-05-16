@@ -40,6 +40,11 @@ export const Header = () => {
     debounceInput(event.target.value)
   }
 
+  const handleLogout = () => {
+    window.localStorage.clear();
+    window.location.href='/';
+  };
+
   return (
     <div className="w-full fixed top-0 left-0 bg-[#000] z-100">
       <div
@@ -76,6 +81,9 @@ export const Header = () => {
                 className="w-[30px] h-[30px] object-cover rounded-full overflow-hidden"
               />
               <div>{userInfo.name}</div>
+              <button onClick={handleLogout} className="text-[#FFFFFF] py-[3px]">
+                Logout
+              </button>
             </li>
           ) : (
             <Link to={'/login'}>Login</Link>
@@ -111,6 +119,9 @@ export const Header = () => {
                   className="w-[30px] h-[30px] object-cover rounded-full overflow-hidden"
                 />
                 <div>{userInfo.name}</div>
+                <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                  Logout
+                </button>
               </li>
             ) : (
               <Link to={'/login'} className="text-[#FFFFFF] py-[10px]">

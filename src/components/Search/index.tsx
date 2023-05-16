@@ -1,25 +1,20 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { useQuery } from '@tanstack/react-query'
 import { Layout } from '..'
 import { CardSkeletonLoading } from 'src/common/CardSkeletonLoading'
 import { Pagination } from 'src/common/Pagination'
-import { SearchMultiData, SearchTvData, SearchMovieData, SearchDataResponse } from 'src/models/api'
-import { IMAGE_URL, IMAGE_WIDTH } from 'src/models/common'
-import { getSearchMulti } from 'src/utils/api'
 import { QUERY_KEYS } from 'src/utils/keys'
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { SELECT_SEARCH } from 'src/utils/common'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { PlayIcon } from 'src/common/CustomIcons'
 import {getMovieList} from "../../utils/api/movie";
 import {IMovieListDataResponse} from "../../models/api/movie.interface";
 
 export const SearchMultiScreen = () => {
   const [searchParams] = useSearchParams()
-  const location = useLocation()
   const navigate = useNavigate()
   const [page, setPage] = useState<number>(1)
-  const [limit, setLimit] = useState<number>(5);
+  const [limit] = useState<number>(5);
 
   const { data: searchData, isLoading: isSearchLoading } = useQuery(
       [QUERY_KEYS.MOVIE_LIST, page, limit],

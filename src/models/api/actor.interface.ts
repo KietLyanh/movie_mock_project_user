@@ -15,20 +15,3 @@ export interface IActorListData {
     avatar: string;
 }
 
-export interface ICreateActorDataResponse {
-    id: string;
-    collectionId: string;
-    collectionName: string;
-    created: string;
-    name: string;
-    avatar: string;
-}
-
-export interface IEditActorDataResponse {
-    id: string;
-    collectionId: string;
-    collectionName: string;
-    created: string;
-    name: string;
-    avatar: string;
-}

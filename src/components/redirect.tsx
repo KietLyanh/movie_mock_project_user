@@ -25,7 +25,7 @@ const Redirect = () => {
     authWithOauth()
   }, [])
 
-  return <div>Chờ 1 tí</div>
+  return <div>Wait A Minute</div>
 }
 
 export default Redirect
