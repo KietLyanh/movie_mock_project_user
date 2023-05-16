@@ -76,7 +76,7 @@ export const SearchMultiScreen = () => {
                   <PlayIcon width={48} height={48} color="#FFFFFF" />
                 </div>
                 <LazyLoadImage
-                    src={`${IMAGE_URL}/${item.collectionId}/${item.id}/${item.poster}`}
+                    src={item.poster}
                   className="relative z-1"
                   alt={ item.name ?? 'Image'}
                 />

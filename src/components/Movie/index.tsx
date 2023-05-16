@@ -167,8 +167,8 @@ export const MovieScreen = () => {
       {movie && (
         <div className="w-full h-fit">
           <div className="w-full h-screen">
-            <img className="absolute w-full object-cover h-full" src={movie.poster} alt={movie.name ?? 'Image'} />
-            <div className="absolute w-full h-full bg-[#000000a9] z-10" />
+            <img className="absolute w-full object-cover brightness-50" src={movie.poster} alt={movie.name ?? 'Image'} />
+            <div className="absolute w-full h-full z-10" />
             <div className="relative container lg:w-[1100px] mx-auto z-10 pt-[60px] max-sm:px-[10px]">
               <div className="flex justify-between items-center flex-wrap">
                 <div className="text-[#FFFFFF]">
@@ -215,59 +215,59 @@ export const MovieScreen = () => {
               >
                 Xem Phim
               </Link>
-            </div>
-          </div>
-          <div className="container lg:w-[1100px] mx-auto mt-[20px]">
-            <p className="text-[26px] font-semibold">Comments</p>
-            <div className="mt-[10px]">
-              {comments &&
-                comments.items.map((comment: ICommentData) => {
-                  if (comment.field !== userInfo.id) {
-                    return (
-                      <div key={comment.id} className="flex gap-[6px] mt-[5px] items-center">
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
-                          alt="Unknown User"
-                          className="w-[40px] "
-                        />
-                        <div>
-                          <p>Unknown User</p>
-                          <p>{comment.comments}</p>
-                        </div>
-                      </div>
-                    )
-                  } else {
-                    return (
-                      <div key={comment.id} className="flex mt-[5px] gap-[6px] items-center">
-                        <img
-                          src={`http://127.0.0.1:8090/api/files/_pb_users_auth_/qbxkznqh7rnh95m/${userInfo.avatar}`}
-                          alt={userInfo.name}
-                          className="w-[40px] "
-                        />
-                        <div>
-                          <p>{userInfo.name}</p>
-                          <p>{comment.comments}</p>
-                        </div>
-                      </div>
-                    )
-                  }
-                })}
-            </div>
-            <div className="mt-[10px] pb-[30px]">
-              <div className="flex items-center gap-[20px]">
-                <img
-                  src={`http://127.0.0.1:8090/api/files/_pb_users_auth_/qbxkznqh7rnh95m/${userInfo.avatar}`}
-                  alt={userInfo.name}
-                  className="w-[60px] "
-                />
-                <div>
-                  <p>{userInfo.name}</p>
-                  <input
-                    ref={commentValue}
-                    className="border-[1px] border-[#808080] w-[300px] py-[5px] px-[10px] rounded-md"
-                    placeholder="Comment here"
-                    onKeyDown={handleComment}
-                  />
+              <div className="container lg:w-[1100px] mx-auto mt-[20px]">
+                <p className="text-[26px] font-semibold text-white">Comments</p>
+                <div className="mt-[10px] pb-[30px]">
+                  <div className="flex items-center gap-[20px] text-white">
+                    <img
+                        src={`http://127.0.0.1:8090/api/files/_pb_users_auth_/qbxkznqh7rnh95m/${userInfo.avatar}`}
+                        alt={userInfo.name}
+                        className="w-[60px] h-[60px] rounded-full object-cover"
+                    />
+                    <div>
+                      <p>{userInfo.name}</p>
+                      <input
+                          ref={commentValue}
+                          className="border-[1px] border-[#808080] w-[300px] py-[5px] px-[10px] rounded-md"
+                          placeholder="Comment here"
+                          onKeyDown={handleComment}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-[10px] pb-[100px] text-white font-semibold">
+                  {comments &&
+                      comments.items.map((comment: ICommentData) => {
+                        if (comment.field !== userInfo.id) {
+                          return (
+                              <div key={comment.id} className="flex gap-[6px] mt-[5px]">
+                                <img
+                                    src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+                                    alt="Unknown User"
+                                    className="w-[60px] h-[60px] rounded-full object-cover "
+                                />
+                                <div>
+                                  <p>Unknown User</p>
+                                  <p>{comment.comments}</p>
+                                </div>
+                              </div>
+                          )
+                        } else {
+                          return (
+                              <div key={comment.id} className="flex mt-[5px] gap-[6px]">
+                                <img
+                                    src={`http://127.0.0.1:8090/api/files/_pb_users_auth_/qbxkznqh7rnh95m/${userInfo.avatar}`}
+                                    alt={userInfo.name}
+                                    className="w-[60px] h-[60px] rounded-full object-cover"
+                                />
+                                <div className="pl-[20px]">
+                                  <p>{userInfo.name}</p>
+                                  <p>{comment.comments}</p>
+                                </div>
+                              </div>
+                          )
+                        }
+                      })}
                 </div>
               </div>
             </div>
